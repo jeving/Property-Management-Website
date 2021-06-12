@@ -48,7 +48,7 @@ def contact1(request):
  #       send_mail(
  #              'Property Listing Inquiry',
  #              'Hii... There has been an inquiry for ' + u_id + '. Sign into the admin panel for more',
- #              'jevingtrapsiya218@gmail.com',
+ #              'xyx@gmail.com',
  #              ['{{ realtor.email }}'],
  #              fail_silently=False
  # )
