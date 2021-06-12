@@ -1,6 +1,7 @@
 # Property-Management-Website
 Property Management Website using django
-Move assets which is in btre to file in btre/static.
+
+Move assets file which is in btre to file in btre/static.
 
 then,
 
