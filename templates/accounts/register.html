@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %} | Registration Account {% endblock %}
+
+{% block content %}
+<!-- Sub banner start -->
+<div class="sub-banner overview-bgi">
+  <div class="container">
+      <div class="breadcrumb-area">
+          <h1>Register Your Self</h1>
+          <ul class="breadcrumbs">
+              <li><a href="{% url 'index' %}">Home</a></li>
+              <li class="active">Register With Us</li>
+          </ul>
+      </div>
+  </div>
+</div>
+<!-- Sub banner end -->
+
+<section id="register" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4>
+                <i class="fas fa-user-plus"></i> Register</h4>
+            </div>
+            <div class="card-body">
+                <!-- Alerts Messages -->
+                {% include 'partials/_alerts.html' %}
+                <form action="{% url 'register' %}" method="POST">
+                  {% csrf_token %}
+                  <div class="form-group">
+                  <label for="first_name">First Name</label>
+                  <input type="text" name="first_name" class="form-control" minlength="3" placeholder="First Name" required>
+                </div>
+                <div class="form-group">
+                  <label for="last_name">Last Name</label>
+                  <input type="text" name="last_name" class="form-control" minlength="4" placeholder="Last Name"required>
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" class="form-control" minlength="5" maxlenght ="10" placeholder="User Name" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" class="form-control" minlength="7" maxlength="20" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                  <label for="password2">Password</label>
+                  <input type="password" name="password" class="form-control" minlength="7" maxlength="15" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                  <label for="password">Confirm Password</label>
+                  <input type="password" name="password2" class="form-control" minlength="7" maxlength="15" placeholder="Confirm Password" required>
+                </div>
+                
+                <div class="form-group ">
+                  <a style="color: #007bff" href="{% url 'login' %}">Login</label>
+                </div>
+                <input type="submit" value="Register" class="btn bg-primary btn-block">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}

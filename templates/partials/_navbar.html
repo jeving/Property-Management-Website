@@ -1,0 +1,155 @@
+{% load static %}
+
+<header class="main-header sticky-header bg-secondary" id="main-header-2">
+  <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-lg navbar-light navbar-defaul rounded">
+            <div class="container">
+              <a class="navbar-brand navbar-brand d-flex w-50 mr-auto " href="{% url 'index' %}">
+                <img height="35" width="70" class="brand_img" src="{% static 'img/dh1.png' %}" >  </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="fa fa-bars"></span>
+              </button>                      
+             <div class="collapse navbar-collapse " id="navbar" style="width: 300%">
+                <ul class="navbar-nav ml-auto mr-auto">
+                  <li
+                    {% if '/' == request.path %}
+                      class="nav-item active"
+                      {% else %}z
+                      class="nav-item"
+                      {% endif %}  
+                  >
+                  <a class="nav-link  " href="{% url 'index' %}">Home</a>
+                  </li>
+                  
+                  <li
+                    {% if 'about' in request.path %}
+                      class="nav-item active"
+                      {% else %}
+                      class="nav-item"
+                      {% endif %}   
+                    >
+                  <a class="nav-link  " href="{% url 'about' %}">About</a>
+                  </li>
+
+                  <li class="nav-item dropdown"
+                  {% if 'listings' in request.path %}
+                  class="nav-item active" 
+                  {% else %}
+                  class="nav-item"
+                  {% endif %} >
+                  <a class="nav-link dropdown-toggle"  href="{% url 'listings' %}" id="navbarDropdown" aria-haspopup="true" aria-expanded="false">
+                    Properties</a>
+
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <div class="dropdown-divider"></div>
+                      <a 
+                      {% if 'addproperty' in request.path %}
+                      {% else %}
+                      class="nav-item"
+                      {% endif %} 
+                      class="dropdown-item" href="{% url 'addproperty' %}">Add Property</a>
+                      <div class="dropdown-divider"></div>
+
+                    </div>
+                  </li>
+<!--
+                  <li
+                  {% if 'listings' in request.path %}
+                    class="nav-item active"
+                    {% else %}
+                    class="nav-item"
+                    {% endif %} 
+                  >
+                  <a class="nav-link text-dark" href="{% url 'listings'%}">Properties</a>
+                  </li> 
+
+                  <li
+                  {% if 'addpropertys' in request.path %}
+                    class="nav-item active"
+                    {% else %}
+                    class="nav-item"
+                    {% endif %} 
+                  >
+                  <a class="nav-link text-dark" href="{% url 'addpropertys' %}">new</a>
+                  </li>
+                  
+                  <li
+                  {% if 'addproperty' in request.path %}
+                      class="nav-item active"
+                      {% else %}
+                      class="nav-item"
+                      {% endif %} 
+                  >
+                  <a class="nav-link text-dark" href="{% url 'addproperty' %}">Add property</a>
+                  </li> 
+                -->
+
+                  <li
+                  {% if 'contact1' in request.path %}
+                      class="nav-item active"
+                      {% else %}
+                      class="nav-item"
+                      {% endif %} 
+                  >
+                  <a class="nav-link  " href="{% url 'contact1' %}">Contact us</a>
+                  </li>
+                  
+                  </ul>
+                  <ul class="navbar-nav ml-auto">
+                  {% if user.is_authenticated %}
+                  <li 
+                  {% if 'dashboard' in request.path %}
+                    class="nav-item active "
+                    {% else %}
+                    class="nav-item"
+                    {% endif %} 
+                  >
+                  <a class="nav-link  " href="{% url 'dashboard' %}">
+                  Welcome {{ user.username }}</a>
+                  </li>
+                  <li class="nav-item">
+                 <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link  ">
+                   <i class="fas fa-sign-out-alt  "></i>Logout
+                  </a>
+                 <form action="{% url 'logout' %}" method="POST" id="logout">
+                  {% csrf_token %}
+                  <input type="hidden">
+                  </form>
+                  </li>
+                  {% else %}
+                  <li 
+                 {% if 'register' in request.path %}
+                    class="nav-item active"
+                    {% else %}
+                    class="nav-item"
+                    {% endif %} 
+                  >
+                  <a class="nav-link  " href="{% url 'register' %}">
+                  <i class="fas fa-user-plus"></i>Register</a>
+                  </li>
+                  <li
+                  {% if 'login' in request.path %}
+                    class="nav-item active"
+                    {% else %}
+                    class="nav-item"
+                    {% endif %} 
+                  >
+                  <a class="nav-link  " href="{% url 'login' %}">
+                  <i class="fas fa-sign-in-alt"></i>Login</a>
+                  </li>
+                  {% endif %}
+                 <li class="nav-item active">
+                  <a href="{% url 'search' %}" class="nav-link  "> 
+                    <i class="fa fa-search  "></i>
+                  </a>
+                 </li>                
+                  </ul>
+             </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>

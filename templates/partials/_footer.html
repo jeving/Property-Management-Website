@@ -1,0 +1,111 @@
+{% load humanize %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="{% static 'css/de.css' %}">
+    <!-- Footer start -->
+<footer class="footer mt-xl-5">
+    <div class="container footer-inner">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                <div class="footer-item">
+                    <h4>Contact Us</h4>
+
+                    <ul class="contact-info">
+                        <li>
+                            Address: Santosh Nagar, Dahisar (East),
+                        </li>
+                        <li>
+                            Email: <a href="mailto:info@themevessel.com">info@dreamhouse.com</a>
+                        </li>
+                        <li>
+                            Phone: <a href="tel:+0477-85x6-552">+91 1234 567 890</a>
+                        </li>
+                        <li>
+                            Fax: +991 1234 5647 8900
+                        </li>
+                    </ul>
+
+                    <ul class="social-list clearfix">
+                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" class="rss"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+                <div class="footer-item">
+                    <h4>
+                        Useful Links
+                    </h4>
+                    <ul class="links">
+                        <li>
+                            <a href="{% url 'about' %}"><i class="fa fa-angle-right"></i>About us</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-angle-right"></i>Service</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'listings' %}"><i class="fa fa-angle-right"></i>Properties Listing</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-angle-right"></i>Properties Grid</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'contact1' %}"><i class="fa fa-angle-right"></i>Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-angle-right"></i>Blog</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                <div class="recent-posts footer-item">
+                    <h4>Recent Properties</h4>
+                    {% for listing in listings %}
+                    <div class="media mb-4">
+                        <a href="{% url 'listing' listing.id %}">
+                            <img src="{{listing.photo_main.url}}" alt="sub-property" style="height: 4rem; width: 4rem;">
+                        </a>
+                        <div class="media-body align-self-center">
+                            <h5>
+                                <a href="{% url 'listing' listing.id %}">{{ listing.title }} </a>
+                            </h5>
+                            <p>{{ listing.date }}</p>
+                            <p> <strong>₹{{listing.price}}</strong></p>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                <div class="footer-item clearfix ">
+                    <h4>Subscribe</h4>
+                    <div class="Subscribe-box">
+                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                        <form action="#" method="GET">
+                            <p>
+                                <input type="text" class="form-contact" name="email" placeholder="Enter Address" required="">
+                            </p>
+                            <p>
+                                <button type="submit" name="submitNewsletter" class="btn-primary btn-block btn-lg">
+                                    Subscribe
+                                </button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+<!-- Footer end -->
+<footer id="main-footer" class="py-4 bg-primary text-white text-center">
+        Copyright &copy;
+        <span class="year"></span> dreM House
+</footer>
+{% endblock %}

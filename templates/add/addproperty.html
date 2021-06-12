@@ -1,0 +1,353 @@
+  
+{% extends 'base.html'%}
+{% load humanize %}
+{% load static %}
+
+{% block title %} | Add Property {% endblock %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Property Dealer</title>
+    <!-- Favicon-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <!-- Bootstrap Core Css -->
+    <link href="{% static 'css/morris.css' %}" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="{% static 'css/all-themes.css' %}" rel="stylesheet" />
+</head>
+
+
+
+<div class="sub-banner overview-bgi">
+    <div class="container">
+        <div class="breadcrumb-area">
+            <h1>Properties Grid</h1>
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li class="active"><a href="{% url 'addproperty' %}">Add Property</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <!-- Header -->
+    
+    <section>
+       
+       <!-- Left Sidebar -->
+        <!-- #END# Left Sidebar -->
+        <section class=" container">
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card container">
+                        <div class="body">
+                            
+<!--Alert Messages-->
+{% include 'partials/_alerts.html' %}
+                            <form  action="{% url 'addproperty' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% if user.is_authenticated %}
+                                <h3>Hello {{ user.username }}</h3>
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                {% else %}
+                                <input type="hidden" name="user_id" value="0">
+                                {% endif %}
+                                <div class="row clearfix">
+                                    <!--
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                <div class="form-row field-realtor">
+                                    <div>
+                                        <label class="required">Realtor:</label>
+                                            <select name="realtor" required>
+                                            <option value="" selected>---------</option>
+                                            <option value="1">jeving</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                </div>
+                                -->
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                <div class="form-row field-property_type form-float form-group">
+                                    <div>
+                                        <br>
+                                        <label class="required" >Property type:</label>
+                                            <select name="property_type" required >
+                                                <option value="" selected>---------</option>
+                                                <option value="Commercial">Commercial</option>
+                                                <option value="Residential">Residential</option>
+                                                <option value="Industrial">Industrial</option>
+                                            </select>
+                                        </div>
+                                </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                        </div>
+                                    </div>
+                                </div>  
+
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input required type="text" name="property_owner" class="form-control">
+                                            <label class="form-label">Property Owner</label>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input required type="text" name="email" class="form-control">
+                                            <label class="form-label">Owner Email</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input required type="text" name="phone" class="form-control">
+                                            <label class="form-label">Owner Phone Number</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="text" name="title" class="form-control">
+                                                <label class="form-label">Property Title</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="text" name="lot_size" maxlength="4" class="form-control">
+                                                <label class="form-label">Property Lot Size</label>
+                                            </div>
+                                        </div>
+                                     </div>
+
+                                     <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="text" name="sqft" class="form-control">
+                                                <label class="form-label">Land area</label>
+                                            </div>
+                                        </div>
+                                     </div>
+                                    
+                                     <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="text" name="city" class="form-control">
+                                                <label class="form-label">City</label>
+                                            </div>
+                                        </div>
+                                     </div>
+                                    
+                                     <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="text" name="state" class="form-control">
+                                                <label class="form-label">State</label>
+                                            </div>
+                                        </div>
+                                     </div>
+                                    
+                                     <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="number" min="1" name="zipcode" class="form-control">
+                                                <label class="form-label">Zipcode</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="number" min="1" name="price" class="form-control">
+                                                <label class="form-label">Price</label>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+
+                                    <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input type="text" name="address" class="form-control">
+                                                <label class="form-label">Address</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <textarea required name="description" class="form-control"></textarea>
+                                                <label class="form-label">Description</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                
+                                <div class="form-row field-photo_main">
+                                    <div>
+                                            <label class="required" for="id_photo_main">Photo main:</label>
+                                                <input type="file" name="image_file" accept="image/*" required >
+                                    </div>
+                                </div>
+                                
+
+                            <div class="form-row field-photo_1">
+                                    <div>
+                                            <label for="id_photo_1">Photo 1:</label>
+                                                <input type="file" name="photo_1" accept="image/*" id="id_photo_1">
+                                    </div>
+                            </div>
+                                </div>
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+
+                            <div class="form-row field-photo_2">
+                                    <div>
+                                            <label for="id_photo_2">Photo 2:</label>
+                                                <input type="file" name="photo_2" accept="image/*" id="id_photo_2">
+                                    </div>
+                            </div>
+                            
+                            <div class="form-row field-photo_3">
+                                    <div>
+                                            <label for="id_photo_3">Photo 3:</label>
+                                                <input type="file" name="photo_3" accept="image/*" id="id_photo_3">
+                                    </div>
+                            </div>
+                                </div>
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+
+                            <div class="form-row field-photo_4">
+                                    <div>
+                                            <label for="id_photo_4">Photo 4:</label>
+                                                <input type="file" name="photo_4" accept="image/*" id="id_photo_4">
+                                    </div>
+                            </div>
+                            <div class="form-row field-photo_5">
+                                    <div>
+                                            <label for="id_photo_5">Photo 5:</label>
+                                                <input type="file" name="photo_5" accept="image/*" id="id_photo_5">
+                                    </div>
+                            </div>
+                                </div>
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+
+                            <div class="form-row field-photo_6">
+                                    <div>
+                                            <label for="id_photo_6">Photo 6:</label>
+                                                <input type="file" name="photo_6" accept="image/*" id="id_photo_6">
+                                    </div>
+                            </div>
+                                </div>
+                                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                
+                            <div class="form-row field-is_published">
+                                    <div class="checkbox-row">
+                                        <br>
+                                            <input type="checkbox" name="is_published"checked>
+                                            <label class="vCheckboxLabel" for="id_is_published">Is published</label>
+                                    </div>
+                            </div>
+
+                                </div>
+                                    <div class="col-lg-6 col-md-3 col-sm-3 col-xs-6">
+                                            
+                               </div>
+
+                                <div class="header col-lg-12 col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+                                                 
+                               <h4 style="text-align: center;">Condition</h4>
+                                                                                     
+                                </div>
+
+                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="number" min="1" name="kitchan" class="form-control">
+                                                <label class="form-label">Kitchan</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="number" min="1" name="hall" class="form-control">
+                                                <label class="form-label">Hall</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="number" min="0" name="bedrooms" class="form-control">
+                                                <label class="form-label">Bedroom</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="number" min="1" name="bathrooms" class="form-control">
+                                                <label class="form-label">Bathroom</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="number" min="0"name="balcony" class="form-control">
+                                                <label class="form-label">Balcony</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-4 col-md-3 col-sm-3 col-xs-6">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <input required type="number" min="0" name="garage" class="form-control">
+                                                <label class="form-label">Garage</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </form>
+                            
+                            <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12" style="text-align: center;">
+                                <input type="submit" name="submit" class="btn btn-primary btn-lg m-l-15 waves-effect" value="Submit">
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+           
+ {% endblock %}
